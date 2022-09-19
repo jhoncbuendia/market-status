@@ -10,4 +10,11 @@ bookOrderRouter.get(
   },
 );
 
+bookOrderRouter.get(
+  '/book/order/simulate/:pairname/:operationtype/:amount',
+  async (request, response, next) => {
+    await BookOrderController.simulateOperation(request, response, next);
+  },
+);
+
 export default bookOrderRouter;

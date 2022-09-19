@@ -56,13 +56,13 @@ class BookOrderService {
 
   static async simulateOperation(pairName: string, operationType: string, amount: number) {
     try {
-      if (!(operationType === 'BUY' || operationType === 'SELL')) throw Error('Operation not allowed');
+      const operation = _.toLower(operationType);
+      if (!(operation === 'buy' || operation === 'sell')) throw Error('Operation not allowed');
       const orderBook: OrderBookModel = await this.getTips(pairName);
-      console.log('orderBook', orderBook);
-      const { spreadPrice } = orderBook;
+      const {spreadPrice} = orderBook;
       let effectivePrice = 0;
-      if (operationType === 'BUY') effectivePrice = orderBook.lowestAsk.price * amount;
-      if (operationType === 'SELL') effectivePrice = orderBook.highestAsk.price * amount;
+      if (operation === 'buy') effectivePrice = orderBook.lowestAsk.price * amount;
+      if (operation === 'sell') effectivePrice = orderBook.highestAsk.price * amount;
       return {
         pairName,
         operationType,

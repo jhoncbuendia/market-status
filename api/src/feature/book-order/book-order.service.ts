@@ -2,15 +2,17 @@ import Axios from 'axios';
 import _ from 'lodash';
 import { OrderModel, OrderBookModel } from './book-order.model';
 
-const baseUrl = 'https://api-pub.bitfinex.com/v2'; // Domain
+const baseUrl = 'https://api-pub.bitfinex.com/v2';
 const AllowedPairs = ['tBTCUSD', 'tETHUSD'];
 
 class BookOrderService {
   static async getTips(pairName: string): Promise<OrderBookModel> {
     try {
-      if (_.find(AllowedPairs, pairName)) { throw Error('Pair value is not allowed'); }
+      if (!AllowedPairs.includes(pairName)) {
+        throw Error(`${pairName} pair value is not allowed`);
+      }
       const result = await Axios.get(`${baseUrl}/book/${pairName}/P0`);
-      const { data } = result;
+      const {data} = result;
 
       let orderBookItems: Array<OrderModel> = data.map((item: any) => ({
         price: item[0],

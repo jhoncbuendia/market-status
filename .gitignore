@@ -8,3 +8,6 @@ web-socket/node_modules/
 #Web-app
 web-app/node_modules/
 
+#IDE
+.idea
+

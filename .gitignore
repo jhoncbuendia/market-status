@@ -1,5 +1,10 @@
 #Api
-
 api/node_modules/
 api/dist/
+
+#Websocket
+web-socket/node_modules/
+
+#Web-app
+web-app/node_modules/
 
